@@ -1,6 +1,9 @@
 # Olympics
 
 
+
+
+
 ## Download and install all required packages
 ``` R
 install.packages("readr")
@@ -28,6 +31,13 @@ getwd()
 olympics <- read.csv("athlete_events.csv", header = TRUE)
 head(olympics)
 ```
+### x.x Get Basic Information About the Data
+``` R
+head(olympics)
+dim(olympics)
+str(olympics)
+```
+
 
 ## x. Clean Data
 
@@ -97,7 +107,8 @@ kable(null_values, format =  'markdown')
 |Event  |  0|
 |Medal  |  0|
 
-### Drop Unused Games Column as It Contains Data Already Found in Year and Season Column
+### x.x Drop Unused Games Column as It Contains Data Already Found in Year and Season Column
 ``` R
 olympics$Games <- NULL
 R
+
