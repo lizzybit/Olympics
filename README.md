@@ -155,3 +155,12 @@ colSums(is.na(olympics))
 olympics$Games <- NULL
 ```
 
+
+## .x Exploratory Data Analysis
+### x.x Look at the Statistical Summary of the Numeric Columns:
+> Input:
+``` R
+summary(olympics[, sapply(olympics, is.numeric)])
+```
+>Output:
+
