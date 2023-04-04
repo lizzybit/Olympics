@@ -13,7 +13,7 @@
 
 <meta name="date" content="2023-04-04" />
 
-<title>Olympics.R</title>
+<title>olympics1.R</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -350,7 +350,7 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Olympics.R</h1>
+<h1 class="title toc-ignore">olympics1.R</h1>
 <h4 class="author">elizabeth</h4>
 <h4 class="date">2023-04-04</h4>
 
@@ -360,23 +360,7 @@ display: none;
 <pre class="r"><code>###########################################################
 ###########################################################
 ## Download and install all required packages
-install.packages(&quot;readr&quot;)</code></pre>
-<pre><code>## Error in install.packages : Updating loaded packages</code></pre>
-<pre class="r"><code>install.packages(&quot;sqldf&quot;)</code></pre>
-<pre><code>## Error in install.packages : Updating loaded packages</code></pre>
-<pre class="r"><code>install.packages(&quot;calibrate&quot;)</code></pre>
-<pre><code>## Error in install.packages : Updating loaded packages</code></pre>
-<pre class="r"><code>install.packages(&quot;repr&quot;)</code></pre>
-<pre><code>## Error in install.packages : Updating loaded packages</code></pre>
-<pre class="r"><code>install.packages(&quot;tidyverse&quot;)</code></pre>
-<pre><code>## Error in install.packages : Updating loaded packages</code></pre>
-<pre class="r"><code>install.packages(&quot;readxl&quot;)</code></pre>
-<pre><code>## Error in install.packages : Updating loaded packages</code></pre>
-<pre class="r"><code>install.packages(&quot;knitr&quot;)</code></pre>
-<pre><code>## Error in install.packages : Updating loaded packages</code></pre>
-<pre class="r"><code>install.packages(&quot;rmarkdown&quot;)</code></pre>
-<pre><code>## Error in install.packages : Updating loaded packages</code></pre>
-<pre class="r"><code>library(readr)
+library(readr)
 library(sqldf)
 library(calibrate)
 library(repr)
@@ -393,167 +377,23 @@ getwd()</code></pre>
 <pre><code>## [1] &quot;/Users/elizabeth/Documents/GitHub/Olympics&quot;</code></pre>
 <pre class="r"><code>olympics &lt;- read.csv(&quot;athlete_events.csv&quot;, header = TRUE)
 
-head &lt;- head(olympics)
-kable(head, format =  &#39;markdown&#39;)</code></pre>
-<table>
-<colgroup>
-<col width="1%" />
-<col width="15%" />
-<col width="2%" />
-<col width="2%" />
-<col width="4%" />
-<col width="4%" />
-<col width="9%" />
-<col width="2%" />
-<col width="7%" />
-<col width="3%" />
-<col width="4%" />
-<col width="6%" />
-<col width="8%" />
-<col width="22%" />
-<col width="3%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="right">ID</th>
-<th align="left">Name</th>
-<th align="left">Sex</th>
-<th align="right">Age</th>
-<th align="right">Height</th>
-<th align="right">Weight</th>
-<th align="left">Team</th>
-<th align="left">NOC</th>
-<th align="left">Games</th>
-<th align="right">Year</th>
-<th align="left">Season</th>
-<th align="left">City</th>
-<th align="left">Sport</th>
-<th align="left">Event</th>
-<th align="left">Medal</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">1</td>
-<td align="left">A Dijiang</td>
-<td align="left">M</td>
-<td align="right">24</td>
-<td align="right">180</td>
-<td align="right">80</td>
-<td align="left">China</td>
-<td align="left">CHN</td>
-<td align="left">1992 Summer</td>
-<td align="right">1992</td>
-<td align="left">Summer</td>
-<td align="left">Barcelona</td>
-<td align="left">Basketball</td>
-<td align="left">Basketball Men’s Basketball</td>
-<td align="left">NA</td>
-</tr>
-<tr class="even">
-<td align="right">2</td>
-<td align="left">A Lamusi</td>
-<td align="left">M</td>
-<td align="right">23</td>
-<td align="right">170</td>
-<td align="right">60</td>
-<td align="left">China</td>
-<td align="left">CHN</td>
-<td align="left">2012 Summer</td>
-<td align="right">2012</td>
-<td align="left">Summer</td>
-<td align="left">London</td>
-<td align="left">Judo</td>
-<td align="left">Judo Men’s Extra-Lightweight</td>
-<td align="left">NA</td>
-</tr>
-<tr class="odd">
-<td align="right">3</td>
-<td align="left">Gunnar Nielsen Aaby</td>
-<td align="left">M</td>
-<td align="right">24</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="left">Denmark</td>
-<td align="left">DEN</td>
-<td align="left">1920 Summer</td>
-<td align="right">1920</td>
-<td align="left">Summer</td>
-<td align="left">Antwerpen</td>
-<td align="left">Football</td>
-<td align="left">Football Men’s Football</td>
-<td align="left">NA</td>
-</tr>
-<tr class="even">
-<td align="right">4</td>
-<td align="left">Edgar Lindenau Aabye</td>
-<td align="left">M</td>
-<td align="right">34</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="left">Denmark/Sweden</td>
-<td align="left">DEN</td>
-<td align="left">1900 Summer</td>
-<td align="right">1900</td>
-<td align="left">Summer</td>
-<td align="left">Paris</td>
-<td align="left">Tug-Of-War</td>
-<td align="left">Tug-Of-War Men’s Tug-Of-War</td>
-<td align="left">Gold</td>
-</tr>
-<tr class="odd">
-<td align="right">5</td>
-<td align="left">Christine Jacoba Aaftink</td>
-<td align="left">F</td>
-<td align="right">21</td>
-<td align="right">185</td>
-<td align="right">82</td>
-<td align="left">Netherlands</td>
-<td align="left">NED</td>
-<td align="left">1988 Winter</td>
-<td align="right">1988</td>
-<td align="left">Winter</td>
-<td align="left">Calgary</td>
-<td align="left">Speed Skating</td>
-<td align="left">Speed Skating Women’s 500 metres</td>
-<td align="left">NA</td>
-</tr>
-<tr class="even">
-<td align="right">5</td>
-<td align="left">Christine Jacoba Aaftink</td>
-<td align="left">F</td>
-<td align="right">21</td>
-<td align="right">185</td>
-<td align="right">82</td>
-<td align="left">Netherlands</td>
-<td align="left">NED</td>
-<td align="left">1988 Winter</td>
-<td align="right">1988</td>
-<td align="left">Winter</td>
-<td align="left">Calgary</td>
-<td align="left">Speed Skating</td>
-<td align="left">Speed Skating Women’s 1,000 metres</td>
-<td align="left">NA</td>
-</tr>
-</tbody>
-</table>
-<pre class="r"><code>dim &lt;- dim(olympics)
-kable(dim, format =  &#39;markdown&#39;)</code></pre>
-<table>
-<thead>
-<tr class="header">
-<th align="right">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">271116</td>
-</tr>
-<tr class="even">
-<td align="right">15</td>
-</tr>
-</tbody>
-</table>
+head(olympics)</code></pre>
+<pre><code>##   ID                     Name Sex Age Height Weight           Team NOC       Games Year Season      City
+## 1  1                A Dijiang   M  24    180     80          China CHN 1992 Summer 1992 Summer Barcelona
+## 2  2                 A Lamusi   M  23    170     60          China CHN 2012 Summer 2012 Summer    London
+## 3  3      Gunnar Nielsen Aaby   M  24     NA     NA        Denmark DEN 1920 Summer 1920 Summer Antwerpen
+## 4  4     Edgar Lindenau Aabye   M  34     NA     NA Denmark/Sweden DEN 1900 Summer 1900 Summer     Paris
+## 5  5 Christine Jacoba Aaftink   F  21    185     82    Netherlands NED 1988 Winter 1988 Winter   Calgary
+## 6  5 Christine Jacoba Aaftink   F  21    185     82    Netherlands NED 1988 Winter 1988 Winter   Calgary
+##           Sport                              Event Medal
+## 1    Basketball        Basketball Men&#39;s Basketball  &lt;NA&gt;
+## 2          Judo       Judo Men&#39;s Extra-Lightweight  &lt;NA&gt;
+## 3      Football            Football Men&#39;s Football  &lt;NA&gt;
+## 4    Tug-Of-War        Tug-Of-War Men&#39;s Tug-Of-War  Gold
+## 5 Speed Skating   Speed Skating Women&#39;s 500 metres  &lt;NA&gt;
+## 6 Speed Skating Speed Skating Women&#39;s 1,000 metres  &lt;NA&gt;</code></pre>
+<pre class="r"><code>dim(olympics)</code></pre>
+<pre><code>## [1] 271116     15</code></pre>
 <pre class="r"><code>str(olympics)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    271116 obs. of  15 variables:
 ##  $ ID    : int  1 2 3 4 5 5 5 5 5 5 ...
@@ -577,79 +417,9 @@ kable(dim, format =  &#39;markdown&#39;)</code></pre>
 
 # 1. Find null values
 
-null_values &lt;- colSums(is.na(olympics))
-
-kable(null_values, format =  &#39;markdown&#39;)</code></pre>
-<table>
-<thead>
-<tr class="header">
-<th align="left"></th>
-<th align="right">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">ID</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">Name</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">Sex</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">Age</td>
-<td align="right">9474</td>
-</tr>
-<tr class="odd">
-<td align="left">Height</td>
-<td align="right">60171</td>
-</tr>
-<tr class="even">
-<td align="left">Weight</td>
-<td align="right">62875</td>
-</tr>
-<tr class="odd">
-<td align="left">Team</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">NOC</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">Games</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">Year</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">Season</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">City</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">Sport</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">Event</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">Medal</td>
-<td align="right">231333</td>
-</tr>
-</tbody>
-</table>
+colSums(is.na(olympics))</code></pre>
+<pre><code>##     ID   Name    Sex    Age Height Weight   Team    NOC  Games   Year Season   City  Sport  Event  Medal 
+##      0      0      0   9474  60171  62875      0      0      0      0      0      0      0      0 231333</code></pre>
 <pre class="r"><code># 2. Fill the missing values in the column Medal with string of &#39;DNW&#39;
 olympics$Medal[is.na(olympics$Medal)] &lt;- &quot;DNW&quot;
 
@@ -660,81 +430,13 @@ olympics$Height[is.na(olympics$Height)] &lt;- mean(olympics$Height, na.rm = TRUE
 olympics$Weight[is.na(olympics$Weight)] &lt;- mean(olympics$Weight, na.rm = TRUE)
 olympics$Age[is.na(olympics$Age)] &lt;- mean(olympics$Age, na.rm = TRUE)
 
-null_values &lt;- colSums(is.na(olympics))
-kable(null_values, format =  &#39;markdown&#39;)</code></pre>
-<table>
-<thead>
-<tr class="header">
-<th align="left"></th>
-<th align="right">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">ID</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">Name</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">Sex</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">Age</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">Height</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">Weight</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">Team</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">NOC</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">Games</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">Year</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">Season</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">City</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">Sport</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">Event</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">Medal</td>
-<td align="right">0</td>
-</tr>
-</tbody>
-</table>
+colSums(is.na(olympics))</code></pre>
+<pre><code>##     ID   Name    Sex    Age Height Weight   Team    NOC  Games   Year Season   City  Sport  Event  Medal 
+##      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0</code></pre>
 <pre class="r"><code># 4. Drop unused games column as it contains data already found in year and season column
 
 olympics$Games &lt;- NULL
+
 
 ###########################################################
 ###########################################################

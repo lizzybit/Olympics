@@ -18,11 +18,9 @@ getwd()
 
 olympics <- read.csv("athlete_events.csv", header = TRUE)
 
-head <- head(olympics)
-kable(head, format =  'markdown')
+head(olympics)
 
-dim <- dim(olympics)
-kable(dim, format =  'markdown')
+dim(olympics)
 
 str(olympics)
 
@@ -32,9 +30,8 @@ str(olympics)
 
 # 1. Find null values
 
-null_values <- colSums(is.na(olympics))
+colSums(is.na(olympics))
 
-kable(null_values, format =  'markdown')
 
 # 2. Fill the missing values in the column Medal with string of 'DNW'
 olympics$Medal[is.na(olympics$Medal)] <- "DNW"
@@ -46,8 +43,7 @@ olympics$Height[is.na(olympics$Height)] <- mean(olympics$Height, na.rm = TRUE)
 olympics$Weight[is.na(olympics$Weight)] <- mean(olympics$Weight, na.rm = TRUE)
 olympics$Age[is.na(olympics$Age)] <- mean(olympics$Age, na.rm = TRUE)
 
-null_values <- colSums(is.na(olympics))
-kable(null_values, format =  'markdown')
+colSums(is.na(olympics))
 
 # 4. Drop unused games column as it contains data already found in year and season column
 

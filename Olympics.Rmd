@@ -5,7 +5,10 @@ output:
   html_document: default
 date: "2023-04-04"
 ---
-
+output:
+  md_document:
+    variant: markdown_strict+backtick_code_blocks+autolink_bare_uris
+    
 ```{r}
 setwd("/Users/elizabeth/Documents/GitHub/Olympics")
 
