@@ -31,7 +31,8 @@ head(olympics)
 
 ## x. Clean Data
 
-### .x Find null values
+### x.x Impute Missing Data
+#### x.x.x Find null values
 ``` R
 null_values <- colSums(is.na(olympics))
 
@@ -56,12 +57,42 @@ kable(null_values, format =  'markdown')
 |Event  |      0|
 |Medal  | 231333|
 
-### .x Fill the missing values in the column Medal with string of 'NA'
+#### x.x.x Fill the missing values in the column Medal with string of 'DNW'
+Medals have a NULL value in about 231,333 rows. This is because only the top 3 athletes in each sport can win medals. These missing values are therefore replaceds by 'Did not win' or 'DNW'.
 ``` R
-olympics$Medal[is.na(olympics$Medal)] <- "NA"
+olympics$Medal[is.na(olympics$Medal)] <- "DNW"
 
 sum(is.na(olympics$Medal))
 ```
-### .x Replace missing data:
-Use 'mice' to impute based on columns Year, Age, Height, Weight
+#### x.x.x Replace missing values in height, weight and age with mean
+``` R
+olympics$Height[is.na(olympics$Height)] <- mean(olympics$Height, na.rm = TRUE)
+olympics$Weight[is.na(olympics$Weight)] <- mean(olympics$Weight, na.rm = TRUE)
+olympics$Age[is.na(olympics$Age)] <- mean(olympics$Age, na.rm = TRUE)
+```
+#### x.x.x Comfirm That All Columns Are Imputed
+``` R
+null_values <- colSums(is.na(olympics))
+kable(null_values, format =  'markdown')
 
+null_values <- colSums(is.na(olympics))
+kable(null_values, format =  'markdown')
+```
+-- Output
+|column |null   |
+|:------|------:|
+|ID     |  0|
+|Name   |  0|
+|Sex    |  0|
+|Age    |  0|
+|Height |  0|
+|Weight |  0|
+|Team   |  0|
+|NOC    |  0|
+|Games  |  0|
+|Year   |  0|
+|Season |  0|
+|City   |  0|
+|Sport  |  0|
+|Event  |  0|
+|Medal  |  0|
