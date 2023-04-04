@@ -20,7 +20,7 @@ library(mice)
 ```
 
 
-## Import data
+## x. Import data
 ``` R
 setwd("/Users/elizabeth/Documents/GitHub/Olympics")
 getwd()
@@ -29,11 +29,16 @@ olympics <- read.csv("athlete_events.csv", header = TRUE)
 head(olympics)
 ```
 
-## Clean Data
-### .x Replace missing data:
-Use 'mice' to impute based on columns Year, Age, Height, Weight
+## x. Clean Data
 
-|column |num_na |
+### .x Find null values
+``` R
+null_values <- colSums(is.na(olympics))
+
+kable(null_values, format =  'markdown')
+```
+-- Output
+|column |null   |
 |:------|------:|
 |ID     |      0|
 |Name   |      0|
@@ -50,3 +55,13 @@ Use 'mice' to impute based on columns Year, Age, Height, Weight
 |Sport  |      0|
 |Event  |      0|
 |Medal  | 231333|
+
+### .x Fill the missing values in the column Medal with string of 'NA'
+``` R
+olympics$Medal[is.na(olympics$Medal)] <- "NA"
+
+sum(is.na(olympics$Medal))
+```
+### .x Replace missing data:
+Use 'mice' to impute based on columns Year, Age, Height, Weight
+
