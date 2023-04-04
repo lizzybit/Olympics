@@ -1,9 +1,5 @@
 # Olympics
 
-
-
-
-
 ## Download and install all required packages
 ``` R
 install.packages("readr")
@@ -27,13 +23,32 @@ library(mice)
 ``` R
 setwd("/Users/elizabeth/Documents/GitHub/Olympics")
 getwd()
+```
+Output:
+``` R
+[1] "/Users/elizabeth/Documents/GitHub/Olympics"
+```
 
+``` R
 olympics <- read.csv("athlete_events.csv", header = TRUE)
 head(olympics)
 ```
 ### x.x Get Basic Information About the Data
 ``` R
 head(olympics)
+```
+
+
+| ID|Name                     |Sex | Age| Height| Weight|Team           |NOC |Games       | Year|Season |City      |Sport         |Event                              |Medal |
+|--:|:------------------------|:---|---:|------:|------:|:--------------|:---|:-----------|----:|:------|:---------|:-------------|:----------------------------------|:-----|
+|  1|A Dijiang                |M   |  24|    180|     80|China          |CHN |1992 Summer | 1992|Summer |Barcelona |Basketball    |Basketball Men's Basketball        |NA    |
+|  2|A Lamusi                 |M   |  23|    170|     60|China          |CHN |2012 Summer | 2012|Summer |London    |Judo          |Judo Men's Extra-Lightweight       |NA    |
+|  3|Gunnar Nielsen Aaby      |M   |  24|     NA|     NA|Denmark        |DEN |1920 Summer | 1920|Summer |Antwerpen |Football      |Football Men's Football            |NA    |
+|  4|Edgar Lindenau Aabye     |M   |  34|     NA|     NA|Denmark/Sweden |DEN |1900 Summer | 1900|Summer |Paris     |Tug-Of-War    |Tug-Of-War Men's Tug-Of-War        |Gold  |
+|  5|Christine Jacoba Aaftink |F   |  21|    185|     82|Netherlands    |NED |1988 Winter | 1988|Winter |Calgary   |Speed Skating |Speed Skating Women's 500 metres   |NA    |
+|  5|Christine Jacoba Aaftink |F   |  21|    185|     82|Netherlands    |NED |1988 Winter | 1988|Winter |Calgary   |Speed Skating |Speed Skating Women's 1,000 metres |NA    |
+
+``` R
 dim(olympics)
 str(olympics)
 ```
