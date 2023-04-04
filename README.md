@@ -198,6 +198,11 @@ ggplot(olympics, aes(x = Age)) +
        x = "Age",
        y = "Count")
 ```
+> Output:
+
+<p align = "center">
+  <img src="https://user-images.githubusercontent.com/128324837/229913751-3af2ebd5-9877-4aa5-82da-5054ee04dfac.png">
+</p>
 
 #### Weight:
 > Input:
@@ -208,6 +213,9 @@ ggplot(olympics, aes(x = Weight)) +
        x = "Weight",
        y = "Count")
 ```
+<p align = "center">
+  <img src="https://user-images.githubusercontent.com/128324837/229913791-cf69ec70-8dda-432b-b696-78b04f44e2b8.png">
+</p>
 
 #### Height:
 > Input:
@@ -218,4 +226,10 @@ ggplot(olympics, aes(x = Height)) +
        x = "Height",
        y = "Count")
 ```
+<p align = "center">
+  <img src="https://user-images.githubusercontent.com/128324837/229913813-a9596601-5b8b-49e3-aebd-ded84133643a.png">
+</p>
+
+
+
 
