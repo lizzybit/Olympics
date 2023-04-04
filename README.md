@@ -1,7 +1,7 @@
 # Olympics
 
 ## Download and install all required packages
-``` R
+``` {r}
 install.packages("readr")
 install.packages("sqldf")
 install.packages("calibrate")
@@ -21,21 +21,21 @@ library(mice)
 
 ## x. Import data
 > Input:
-``` R
+``` {r}
 setwd("/Users/elizabeth/Documents/GitHub/Olympics")
 getwd()
 ```
 > Output:
-``` R
+``` {r}
 "/Users/elizabeth/Documents/GitHub/Olympics"
 ```
 > Input:
-``` R
+``` {r}
 olympics <- read.csv("athlete_events.csv", header = TRUE)
 ```
 ### x.x Get Basic Information About the Data
 > Input:
-``` R
+``` {r}
 head(olympics)
 ```
 > Output:
@@ -50,19 +50,19 @@ head(olympics)
 |  5|Christine Jacoba Aaftink |F   |  21|    185|     82|Netherlands    |NED |1988 Winter | 1988|Winter |Calgary   |Speed Skating |Speed Skating Women's 1,000 metres |NA    |
 
 > Input:
-``` R
+``` {r}
 dim(olympics)
 ```
 > Output:
-``` R
+``` {r}
 271116     15
 ```
 > Input:
-``` R
+``` {r}
 str(olympics)
 ```
 > Output:
-``` R
+``` {r}
 data.frame': 271116 obs. of 15 variables:
  $ ID    : int  1 2 3 4 5 5 5 5 5 5 ...
  $ Name  : chr  "A Dijiang" "A Lamusi" "Gunnar Nielsen Aaby" "Edgar Lindenau Aabye" ...
@@ -86,7 +86,7 @@ data.frame': 271116 obs. of 15 variables:
 ### x.x Impute Missing Data
 #### x.x.x Find Null Values
 > Input:
-``` R
+``` {r}
 colSums(is.na(olympics))
 ```
 > Output:
@@ -112,21 +112,35 @@ colSums(is.na(olympics))
 #### x.x.x Fill the Missing Values in the Column Medal With String of ‘DNW'
 Medals have a NULL value in about 231,333 rows. This is because only the top 3 athletes in each sport can win medals. These missing values are therefore replaceds by 'Did not win' or 'DNW'.
 > Input:
-``` R
+```{r}
 olympics$Medal[is.na(olympics$Medal)] <- "DNW"
 
 sum(is.na(olympics$Medal))
 ```
-#### x.x.x Replace Missing Values in Height, Weight and Age With Mean
+#### Replace Missing Values in Height, Weight and Age Using Mice
+Build a list of columns that will be used for imputation
 > Input:
-``` R
-olympics$Height[is.na(olympics$Height)] <- mean(olympics$Height, na.rm = TRUE)
-olympics$Weight[is.na(olympics$Weight)] <- mean(olympics$Weight, na.rm = TRUE)
-olympics$Age[is.na(olympics$Age)] <- mean(olympics$Age, na.rm = TRUE)
+``` {r}
+cols_to_impute = c('Year', 'Age', 'Height', 'Weight')
+```
+Create an imputation model using mice
+> Input:
+```{r}
+imputation_model <- mice(olympics[, cols_to_impute])
+``` 
+Impute missing values
+> Input:
+```{r}
+imputed_data <- complete(imputation_model)
+``` 
+Assign the imputed data back to the original DataFrame's columns
+> Input:
+```{r}
+olympics[, cols_to_impute] <- imputed_data[, cols_to_impute]
 ```
 #### x.x.x Comfirm That All Columns Are Imputed
 > Input:
-``` R
+``` {r}
 colSums(is.na(olympics))
 ```
 > Output:
@@ -151,7 +165,7 @@ colSums(is.na(olympics))
 
 ### x.x Drop Unused Games Column as It Contains Data Already Found in Year and Season Column
 > Input:
-``` R
+``` {r}
 olympics$Games <- NULL
 ```
 
@@ -159,8 +173,49 @@ olympics$Games <- NULL
 ## .x Exploratory Data Analysis
 ### x.x Look at the Statistical Summary of the Numeric Columns:
 > Input:
-``` R
+``` {r}
 summary(olympics[, sapply(olympics, is.numeric)])
 ```
 >Output:
+
+|      ID       |     Age      |    Height    |    Weight    |     Year    |
+|:--------------|:-------------|:-------------|:-------------|:------------|
+|Min.   :     1 |Min.   :10.00 |Min.   :127.0 |Min.   : 25.0 |Min.   :1896 |
+|1st Qu.: 34643 |1st Qu.:22.00 |1st Qu.:170.0 |1st Qu.: 63.0 |1st Qu.:1960 |
+|Median : 68205 |Median :25.00 |Median :175.3 |Median : 70.7 |Median :1988 |
+|Mean   : 68249 |Mean   :25.56 |Mean   :175.3 |Mean   : 70.7 |Mean   :1978 |
+|3rd Qu.:102097 |3rd Qu.:28.00 |3rd Qu.:180.0 |3rd Qu.: 75.0 |3rd Qu.:2002 |
+|Max.   :135571 |Max.   :97.00 |Max.   :226.0 |Max.   :214.0 |Max.   :2016 |
+
+### x.x Plot the histograms for the age, weight and height values:
+
+#### Age:
+> Input:
+``` {r}
+ggplot(olympics, aes(x = Age)) +
+  geom_histogram(binwidth = 1, fill = "blue", color = "black") +
+  labs(title = "Distribution of Athlete Age",
+       x = "Age",
+       y = "Count")
+```
+
+#### Weight:
+> Input:
+``` {r}
+ggplot(olympics, aes(x = Weight)) +
+  geom_histogram(binwidth = 5, fill = "blue", color = "black") +
+  labs(title = "Distribution of Athlete Weight",
+       x = "Weight",
+       y = "Count")
+```
+
+#### Height:
+> Input:
+``` {r}
+ggplot(olympics, aes(x = Height)) +
+  geom_histogram(binwidth = 3, fill = "blue", color = "black") +
+  labs(title = "Distribution of Athlete Height",
+       x = "Height",
+       y = "Count")
+```
 
