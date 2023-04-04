@@ -230,6 +230,58 @@ ggplot(olympics, aes(x = Height)) +
   <img src="https://user-images.githubusercontent.com/128324837/229913813-a9596601-5b8b-49e3-aebd-ded84133643a.png">
 </p>
 
+### x.x Create a boxplot of age and highlight the outliers
+
+#### Age
+> Input:
+``` {r}
+ggplot(olympics, aes(y = Age)) + 
+  geom_boxplot(outlier.shape = 19, outlier.size = 3) +
+  ylim(0, 100) +
+  theme(plot.title = element_text(hjust = 0.5))+
+  labs(title = "Age Distribution with Outliers",
+       x = "",
+       y = "Age")+
+  scale_x_continuous(breaks = c())
+```
+> Output:
+<p align = "center">
+  <img src="https://user-images.githubusercontent.com/128324837/229929140-81fee535-97af-4314-8827-ca295524f224.png">
+</p>
+
+#### Weight:
+> Input:
+``` {r}
+ggplot(olympics, aes(y = Weight)) + 
+  geom_boxplot(outlier.shape = 19, outlier.size = 3) +
+  ylim(0, 220) +
+  theme(plot.title = element_text(hjust = 0.5))+
+  labs(title = "Weight Distribution with Outliers",
+       x = "",
+       y = "Weight")+
+  scale_x_continuous(breaks = c())
+```
+> Output:
+<p align = "center">
+  <img src="https://user-images.githubusercontent.com/128324837/229929172-5deda8ea-b4f2-4cb8-b325-bccd8ac72de2.png">
+</p>
+
+#### Height:
+> Input:
+``` {r}
+ggplot(olympics, aes(y = Height)) + 
+  geom_boxplot(outlier.shape = 19, outlier.size = 3) +
+  ylim(120, 230) +
+  theme(plot.title = element_text(hjust = 0.5))+
+  labs(title = "Height Distribution with Outliers",
+       x = "",
+       y = "Height")+
+  scale_x_continuous(breaks = c())
+  ```
+> Output:
+<p align = "center">
+  <img src="https://user-images.githubusercontent.com/128324837/229929189-bd434bb4-7b62-4f82-bd6c-3024961439d8.png">
+</p>
 
 
 
