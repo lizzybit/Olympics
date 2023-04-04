@@ -1,0 +1,18 @@
+---
+title: "Olympics Markdown"
+output:
+  word_document: default
+  html_document: default
+date: "2023-04-04"
+---
+
+```{r}
+setwd("/Users/elizabeth/Documents/GitHub/Olympics")
+
+olympics <- read.csv("athlete_events.csv", header = TRUE)
+```
+```{r}
+head(olympics)
+dim(olympics)
+str(olympics)
+```
