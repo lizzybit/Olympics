@@ -358,3 +358,282 @@ h_high
 75% 
 203 
 ``` 
+#### x.x.x Find the Sport(s) With the Youngest Athletes:
+> input
+``` {r}
+young <- (olympics$Age < (a_q1 - 1.5 * a_iqr))
+
+olympics$Sport[young]
+
+olympics[young, "Sport"] %>% table()
+```
+> Output:
+``` {r}
+Gymnastics 
+         1         
+```
+####  x.x.x Find the Sport(s) With the Oldest Athletes:
+> input
+``` {r}
+old <- (olympics$Age < (a_q3 + 1.5 * a_iqr))
+
+olympics$Sport[old]
+
+olympics[old, "Sport"] %>% table()
+```
+> Output:
+``` {r}
+
+              Aeronautics             Alpine Skiing                  Alpinism 
+                        1                      8805                        17 
+                  Archery          Art Competitions                 Athletics 
+                     2060                      1393                     38262 
+                Badminton                  Baseball                Basketball 
+                     1453                       887                      4528 
+            Basque Pelota          Beach Volleyball                  Biathlon 
+                        2                       554                      4857 
+                Bobsleigh                    Boxing                  Canoeing 
+                     2870                      6031                      6120 
+                  Cricket                   Croquet      Cross Country Skiing 
+                       22                        13                      9080 
+                  Curling                   Cycling                    Diving 
+                      385                     10750                      2831 
+            Equestrianism                   Fencing            Figure Skating 
+                     4537                      9816                      2273 
+                 Football          Freestyle Skiing                      Golf 
+                     6713                       929                       212 
+               Gymnastics                  Handball                    Hockey 
+                    26515                      3648                      5390 
+               Ice Hockey              Jeu De Paume                      Judo 
+                     5482                         7                      3791 
+                 Lacrosse                      Luge       Military Ski Patrol 
+                       58                      1459                        24 
+        Modern Pentathlon              Motorboating           Nordic Combined 
+                     1665                        13                      1343 
+                     Polo                  Racquets       Rhythmic Gymnastics 
+                       68                        10                       658 
+                    Roque                    Rowing                     Rugby 
+                        1                     10462                       157 
+             Rugby Sevens                   Sailing                  Shooting 
+                      299                      5643                      8535 
+Short Track Speed Skating                  Skeleton               Ski Jumping 
+                     1534                       183                      2395 
+             Snowboarding                  Softball             Speed Skating 
+                      934                       474                      5587 
+                 Swimming     Synchronized Swimming              Table Tennis 
+                    23143                       907                      1889 
+                Taekwondo                    Tennis              Trampolining 
+                      606                      2795                       151 
+                Triathlon                Tug-Of-War                Volleyball 
+                      526                       157                      3396 
+               Water Polo             Weightlifting                 Wrestling 
+                     3820                      3893                      7102 
+
+```
+#### x.x.x Find the Sport(s) With the Lighest Athletes:
+> input
+``` {r}
+light <- (olympics$Weight < (w_q1 - 1.5 * w_iqr))
+
+olympics$Sport[light]
+
+olympics[light, "Sport"] %>% table()
+```
+> Output:
+``` {r}
+       Alpine Skiing            Athletics            Bobsleigh 
+                   2                    5                    1 
+Cross Country Skiing              Cycling               Diving 
+                   1                    1                    4 
+             Fencing       Figure Skating             Football 
+                   1                    2                    1 
+          Gymnastics      Nordic Combined  Rhythmic Gymnastics 
+                 178                    2                    2 
+              Rowing             Shooting        Speed Skating 
+                   1                    1                    1 
+            Swimming           Volleyball            Wrestling 
+                   1                    1                    1 
+```
+#### x.x.x Find the Sport(s) With the Heaviest Athletes:
+> input
+``` {r}
+heavy <- (olympics$Weight < (w_q3 + 1.5 * w_iqr))
+
+olympics$Sport[heavy]
+
+olympics[heavy, "Sport"] %>% table()
+```
+> Output:
+``` {r}
+              Aeronautics             Alpine Skiing                  Alpinism 
+                        1                      8788                        22 
+                  Archery          Art Competitions                 Athletics 
+                     2293                      3357                     37307 
+                Badminton                  Baseball                Basketball 
+                     1457                       868                      4136 
+            Basque Pelota          Beach Volleyball                  Biathlon 
+                        2                       556                      4890 
+                Bobsleigh                    Boxing                  Canoeing 
+                     2933                      5994                      6146 
+                  Cricket                   Croquet      Cross Country Skiing 
+                       24                        19                      9111 
+                  Curling                   Cycling                    Diving 
+                      462                     10819                      2828 
+            Equestrianism                   Fencing            Figure Skating 
+                     6293                     10622                      2292 
+                 Football          Freestyle Skiing                      Golf 
+                     6711                       936                       244 
+               Gymnastics                  Handball                    Hockey 
+                    26560                      3562                      5401 
+               Ice Hockey              Jeu De Paume                      Judo 
+                     5469                        11                      3450 
+                 Lacrosse                      Luge       Military Ski Patrol 
+                       58                      1477                        24 
+        Modern Pentathlon              Motorboating           Nordic Combined 
+                     1669                        17                      1338 
+                     Polo                  Racquets       Rhythmic Gymnastics 
+                       90                        11                       658 
+                    Roque                    Rowing                     Rugby 
+                        4                     10515                       159 
+             Rugby Sevens                   Sailing                  Shooting 
+                      291                      6448                     11211 
+Short Track Speed Skating                  Skeleton               Ski Jumping 
+                     1532                       197                      2395 
+             Snowboarding                  Softball             Speed Skating 
+                      935                       474                      5597 
+                 Swimming     Synchronized Swimming              Table Tennis 
+                    23128                       909                      1953 
+                Taekwondo                    Tennis              Trampolining 
+                      601                      2842                       152 
+                Triathlon                Tug-Of-War                Volleyball 
+                      529                       161                      3387 
+               Water Polo             Weightlifting                 Wrestling 
+                     3721                      3496                      6696 
+```
+#### x.x.x Find the sport(s) with the shortest athletes:
+> input
+``` {r}
+short <- (olympics$Height < (h_q1 - 1.5 * h_iqr))
+
+olympics$Sport[short]
+
+olympics[short, "Sport"] %>% table()
+```
+> Output:
+``` {r}
+
+       Alpine Skiing     Art Competitions            Athletics 
+                  15                    8                   51 
+           Badminton           Basketball             Biathlon 
+                   1                    2                    3 
+           Bobsleigh               Boxing             Canoeing 
+                   3                   26                    4 
+             Cricket              Croquet Cross Country Skiing 
+                   1                    1                    6 
+             Cycling               Diving              Fencing 
+                  23                    9                   15 
+      Figure Skating             Football           Gymnastics 
+                  13                   13                  798 
+            Handball               Hockey           Ice Hockey 
+                   4                    4                    7 
+                Judo    Modern Pentathlon         Motorboating 
+                   9                    1                    1 
+     Nordic Combined  Rhythmic Gymnastics               Rowing 
+                   1                    1                   23 
+               Rugby              Sailing             Shooting 
+                   2                    1                   23 
+         Ski Jumping        Speed Skating             Swimming 
+                   2                    3                   42 
+        Table Tennis               Tennis           Volleyball 
+                   2                    6                    1 
+          Water Polo        Weightlifting            Wrestling 
+                   4                   18                   14 
+```
+#### x.x.x Find the Sport(s) With the Tallest Athletes:
+> input
+``` {r}
+tall <- (olympics$Height < (h_q3 + 1.5 * h_iqr))
+
+olympics$Sport[tall]
+
+olympics[tall, "Sport"] %>% table()
+```
+> Output:
+``` {r}
+        Aeronautics             Alpine Skiing                  Alpinism 
+                        1                      8818                        25 
+                  Archery          Art Competitions                 Athletics 
+                     2333                      3525                     38546 
+                Badminton                  Baseball                Basketball 
+                     1457                       893                      3856 
+            Basque Pelota          Beach Volleyball                  Biathlon 
+                        2                       545                      4890 
+                Bobsleigh                    Boxing                  Canoeing 
+                     3053                      6033                      6157 
+                  Cricket                   Croquet      Cross Country Skiing 
+                       24                        19                      9127 
+                  Curling                   Cycling                    Diving 
+                      463                     10846                      2841 
+            Equestrianism                   Fencing            Figure Skating 
+                     6334                     10704                      2296 
+                 Football          Freestyle Skiing                      Golf 
+                     6735                       937                       245 
+               Gymnastics                  Handball                    Hockey 
+                    26666                      3618                      5415 
+               Ice Hockey              Jeu De Paume                      Judo 
+                     5508                        11                      3782 
+                 Lacrosse                      Luge       Military Ski Patrol 
+                       59                      1479                        24 
+        Modern Pentathlon              Motorboating           Nordic Combined 
+                     1675                        17                      1342 
+                     Polo                  Racquets       Rhythmic Gymnastics 
+                       95                        12                       658 
+                    Roque                    Rowing                     Rugby 
+                        4                     10518                       160 
+             Rugby Sevens                   Sailing                  Shooting 
+                      299                      6567                     11409 
+Short Track Speed Skating                  Skeleton               Ski Jumping 
+                     1534                       199                      2401 
+             Snowboarding                  Softball             Speed Skating 
+                      936                       478                      5607 
+                 Swimming     Synchronized Swimming              Table Tennis 
+                    23101                       909                      1952 
+                Taekwondo                    Tennis              Trampolining 
+                      603                      2843                       152 
+                Triathlon                Tug-Of-War                Volleyball 
+                      529                       165                      3196 
+               Water Polo             Weightlifting                 Wrestling 
+                     3815                      3927                      7138 
+```
+#### x.x.x Check for the Number of Unique Values in Each Column
+> input
+``` {r}
+unique_counts <- sapply(olympics, function(x) length(unique(x)))
+print(unique_counts)
+```
+> Output:
+``` {r}
+      ID   Name   Sex Age Height Weight Team  NOC Year Season City Sport Event Medal
+  135571 134732     2  74     95    220 1184  230   35      2   42    66   765     4
+```
+
+#### x.x Look at the Non Numerical Data:
+> input
+``` {r}
+summary(olympics[,sapply(olympics, is.character)])
+```
+> Output:
+``` {r}
+     Name               Sex                Team               NOC           
+ Length:271116      Length:271116      Length:271116      Length:271116     
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+    Season              City              Sport              Event          
+ Length:271116      Length:271116      Length:271116      Length:271116     
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+    Medal          
+ Length:271116     
+ Class :character  
+ Mode  :character  
+ ```
