@@ -224,9 +224,30 @@ olympics$Sport[tall]
 
 olympics[tall, "Sport"] %>% table()
 
+# Compare the Mean Age, Weight and Height for Male and Female Athletes
+olympics %>%
+  group_by(Sex) %>%
+  summarize(mean_age = mean(Age, na.rm = TRUE),
+            mean_height = mean(Height, na.rm = TRUE),
+            mean_weight = mean(Weight, na.rm = TRUE))
+
 # Check for the number of unique values in each column
 unique_counts <- sapply(olympics, function(x) length(unique(x)))
 print(unique_counts)
 
 #check the non-numerical columns
 summary(olympics[,sapply(olympics, is.character)])
+
+## Check the first record within the dataset for each Olympic Sport
+e<- olympics %>%
+  arrange(Year) %>%
+  group_by(Sport) %>%
+  select(Year, Sport) %>%
+  slice(1)
+
+print(e, n = nrow(e))
+kable(e, format =  'markdown')
+
+
+
+
