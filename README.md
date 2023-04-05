@@ -189,7 +189,8 @@ summary(olympics[, sapply(olympics, is.numeric)])
 
 ### x.x Plot the histograms for the age, weight and height values:
 
-#### Age:
+*Age*
+
 > Input:
 ``` {r}
 ggplot(olympics, aes(x = Age)) +
@@ -204,7 +205,8 @@ ggplot(olympics, aes(x = Age)) +
   <img src="https://user-images.githubusercontent.com/128324837/229913751-3af2ebd5-9877-4aa5-82da-5054ee04dfac.png">
 </p>
 
-#### Weight:
+*Weight:*
+
 > Input:
 ``` {r}
 ggplot(olympics, aes(x = Weight)) +
@@ -217,7 +219,8 @@ ggplot(olympics, aes(x = Weight)) +
   <img src="https://user-images.githubusercontent.com/128324837/229913791-cf69ec70-8dda-432b-b696-78b04f44e2b8.png">
 </p>
 
-#### Height:
+*Height*
+
 > Input:
 ``` {r}
 ggplot(olympics, aes(x = Height)) +
@@ -230,6 +233,128 @@ ggplot(olympics, aes(x = Height)) +
   <img src="https://user-images.githubusercontent.com/128324837/229913813-a9596601-5b8b-49e3-aebd-ded84133643a.png">
 </p>
 
+### x.x Create a boxplot of age and highlight the outliers
 
+*Age*
 
+> Input:
+``` {r}
+ggplot(olympics, aes(y = Age)) + 
+  geom_boxplot(outlier.shape = 19, outlier.size = 3) +
+  ylim(0, 100) +
+  theme(plot.title = element_text(hjust = 0.5))+
+  labs(title = "Age Distribution with Outliers",
+       x = "",
+       y = "Age")+
+  scale_x_continuous(breaks = c())
+```
+> Output:
+<p align = "center">
+  <img src="https://user-images.githubusercontent.com/128324837/229929140-81fee535-97af-4314-8827-ca295524f224.png">
+</p>
 
+*Weight*
+
+> Input:
+``` {r}
+ggplot(olympics, aes(y = Weight)) + 
+  geom_boxplot(outlier.shape = 19, outlier.size = 3) +
+  ylim(0, 220) +
+  theme(plot.title = element_text(hjust = 0.5))+
+  labs(title = "Weight Distribution with Outliers",
+       x = "",
+       y = "Weight")+
+  scale_x_continuous(breaks = c())
+```
+> Output:
+<p align = "center">
+  <img src="https://user-images.githubusercontent.com/128324837/229929172-5deda8ea-b4f2-4cb8-b325-bccd8ac72de2.png">
+</p>
+
+*Height:*
+
+> Input:
+``` {r}
+ggplot(olympics, aes(y = Height)) + 
+  geom_boxplot(outlier.shape = 19, outlier.size = 3) +
+  ylim(120, 230) +
+  theme(plot.title = element_text(hjust = 0.5))+
+  labs(title = "Height Distribution with Outliers",
+       x = "",
+       y = "Height")+
+  scale_x_continuous(breaks = c())
+  ```
+> Output:
+<p align = "center">
+  <img src="https://user-images.githubusercontent.com/128324837/229929189-bd434bb4-7b62-4f82-bd6c-3024961439d8.png">
+</p>
+
+### .x Calculate Outliers Bound
+*Age*
+> Input:
+``` {r}
+a_q1 <- quantile(olympics$Age, 0.25)
+a_q3 <- quantile(olympics$Age, 0.75)
+a_iqr <- a_q3 - a_q1
+
+a_small <- a_q1 - 1.5 * a_iqr
+a_high <- a_q3 + 1.5 * a_iqr
+
+a_small
+a_high
+  ```
+> Output:
+``` {r}
+> a_small
+ 25% 
+10.5 
+> a_high
+ 75% 
+38.5 
+```
+*Weight*
+> Input:
+``` {r}
+w_q1 <- quantile(olympics$Weight, 0.25)
+w_q3 <- quantile(olympics$Weight, 0.75)
+w_iqr <- w_q3 - w_q1
+
+w_small <- w_q1 - 1.5 * w_iqr
+w_high <- w_q3 + 1.5 * w_iqr
+
+w_small
+w_high
+```
+> Output:
+``` {r}
+> w_small
+ 25% 
+31.5 
+> w_high
+  75% 
+107.5 
+```
+
+*Height:*
+
+> Input:
+``` {r}
+h_q1 <- quantile(olympics$Height, 0.25)
+h_q3 <- quantile(olympics$Height, 0.75)
+h_iqr <- h_q3 - h_q1
+
+h_small <- h_q1 - 1.5 * h_iqr
+h_high <- h_q3 + 1.5 * h_iqr
+
+h_small
+h_high
+``` 
+> Output:
+``` {r}
+> h_small
+25% 
+147 
+> h_high
+75% 
+203 
+``` 
