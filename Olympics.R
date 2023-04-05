@@ -146,5 +146,87 @@ ggplot(olympics, aes(y = Height)) +
        y = "Height")+
   scale_x_continuous(breaks = c())
 
+# Calculate of Outliers Bound
 
+## Age
+a_q1 <- quantile(olympics$Age, 0.25)
+a_q3 <- quantile(olympics$Age, 0.75)
+a_iqr <- a_q3 - a_q1
 
+a_small <- a_q1 - 1.5 * a_iqr
+a_high <- a_q3 + 1.5 * a_iqr
+
+a_small
+a_high
+
+## Weight:
+w_q1 <- quantile(olympics$Weight, 0.25)
+w_q3 <- quantile(olympics$Weight, 0.75)
+w_iqr <- w_q3 - w_q1
+
+w_small <- w_q1 - 1.5 * w_iqr
+w_high <- w_q3 + 1.5 * w_iqr
+
+w_small
+w_high
+
+## Height:
+h_q1 <- quantile(olympics$Height, 0.25)
+h_q3 <- quantile(olympics$Height, 0.75)
+h_iqr <- h_q3 - h_q1
+
+h_small <- h_q1 - 1.5 * h_iqr
+h_high <- h_q3 + 1.5 * h_iqr
+
+h_small
+h_high
+
+## Find the sport(s) with the youngest athletes: Insert into read me
+
+young <- (olympics$Age < (a_q1 - 1.5 * a_iqr))
+
+olympics$Sport[young]
+
+olympics[young, "Sport"] %>% table()
+
+## Find the sport(s) with the oldest athletes:
+old <- (olympics$Age < (a_q3 + 1.5 * a_iqr))
+
+olympics$Sport[old]
+
+olympics[old, "Sport"] %>% table()
+
+## Find the sport(s) with the lighest athletes:
+light <- (olympics$Weight < (w_q1 - 1.5 * w_iqr))
+
+olympics$Sport[light]
+
+olympics[light, "Sport"] %>% table()
+
+## Find the sport(s) with the heaviest athletes:
+heavy <- (olympics$Weight < (w_q3 + 1.5 * w_iqr))
+
+olympics$Sport[heavy]
+
+olympics[heavy, "Sport"] %>% table()
+
+## Find the sport(s) with the shortest athletes:
+short <- (olympics$Height < (h_q1 - 1.5 * h_iqr))
+
+olympics$Sport[short]
+
+olympics[short, "Sport"] %>% table()
+
+## Find the sport(s) with the tallest athletes:
+tall <- (olympics$Height < (h_q3 + 1.5 * h_iqr))
+
+olympics$Sport[tall]
+
+olympics[tall, "Sport"] %>% table()
+
+# Check for the number of unique values in each column
+unique_counts <- sapply(olympics, function(x) length(unique(x)))
+print(unique_counts)
+
+#check the non-numerical columns
+summary(olympics[,sapply(olympics, is.character)])
