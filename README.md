@@ -359,7 +359,7 @@ h_high
 203 
 ``` 
 #### x.x.x Find the Sport(s) With the Youngest Athletes:
-> input
+> input:
 ``` {r}
 young <- (olympics$Age < (a_q1 - 1.5 * a_iqr))
 
@@ -373,7 +373,7 @@ Gymnastics
          1         
 ```
 ####  x.x.x Find the Sport(s) With the Oldest Athletes:
-> input
+> input:
 ``` {r}
 old <- (olympics$Age < (a_q3 + 1.5 * a_iqr))
 
@@ -431,7 +431,7 @@ Short Track Speed Skating                  Skeleton               Ski Jumping
 
 ```
 #### x.x.x Find the Sport(s) With the Lighest Athletes:
-> input
+> input:
 ``` {r}
 light <- (olympics$Weight < (w_q1 - 1.5 * w_iqr))
 
@@ -455,7 +455,7 @@ Cross Country Skiing              Cycling               Diving
                    1                    1                    1 
 ```
 #### x.x.x Find the Sport(s) With the Heaviest Athletes:
-> input
+> input:
 ``` {r}
 heavy <- (olympics$Weight < (w_q3 + 1.5 * w_iqr))
 
@@ -511,7 +511,7 @@ Short Track Speed Skating                  Skeleton               Ski Jumping
                      3721                      3496                      6696 
 ```
 #### x.x.x Find the sport(s) with the shortest athletes:
-> input
+> input:
 ``` {r}
 short <- (olympics$Height < (h_q1 - 1.5 * h_iqr))
 
@@ -550,7 +550,7 @@ olympics[short, "Sport"] %>% table()
                    4                   18                   14 
 ```
 #### x.x.x Find the Sport(s) With the Tallest Athletes:
-> input
+> input:
 ``` {r}
 tall <- (olympics$Height < (h_q3 + 1.5 * h_iqr))
 
@@ -605,8 +605,27 @@ Short Track Speed Skating                  Skeleton               Ski Jumping
                Water Polo             Weightlifting                 Wrestling 
                      3815                      3927                      7138 
 ```
+
+#### x.x.x Compare the Mean Age, Weight and Height for Male and Female Athletes"
+> input:
+``` {r}
+olympics %>%
+  group_by(Sex) %>%
+  summarize(mean_age = mean(Age, na.rm = TRUE),
+            mean_height = mean(Height, na.rm = TRUE),
+            mean_weight = mean(Weight, na.rm = TRUE))
+```
+> Output:
+``` {r}
+# A tibble: 2 × 4
+  Sex   mean_age mean_height mean_weight
+  <chr>    <dbl>       <dbl>       <dbl>
+1 F         23.7        168.        61.0
+2 M         26.3        178.        74.7
+```
+
 #### x.x.x Check for the Number of Unique Values in Each Column
-> input
+> input:
 ``` {r}
 unique_counts <- sapply(olympics, function(x) length(unique(x)))
 print(unique_counts)
@@ -637,3 +656,82 @@ summary(olympics[,sapply(olympics, is.character)])
  Class :character  
  Mode  :character  
  ```
+ #### See When Each Sport is First Mentioned in the Dataset:
+ > input:
+``` {r}
+olympics %>%
+  arrange(Year) %>%
+  group_by(Sport) %>%
+  select(Year, Sport) %>%
+  slice(1)
+```
+> Output:
+ 
+| Year|Sport                     |
+|----:|:-------------------------|
+| 1936|Aeronautics               |
+| 1936|Alpine Skiing             |
+| 1924|Alpinism                  |
+| 1900|Archery                   |
+| 1912|Art Competitions          |
+| 1896|Athletics                 |
+| 1992|Badminton                 |
+| 1992|Baseball                  |
+| 1936|Basketball                |
+| 1900|Basque Pelota             |
+| 1996|Beach Volleyball          |
+| 1960|Biathlon                  |
+| 1924|Bobsleigh                 |
+| 1904|Boxing                    |
+| 1936|Canoeing                  |
+| 1900|Cricket                   |
+| 1900|Croquet                   |
+| 1924|Cross Country Skiing      |
+| 1924|Curling                   |
+| 1896|Cycling                   |
+| 1904|Diving                    |
+| 1900|Equestrianism             |
+| 1896|Fencing                   |
+| 1908|Figure Skating            |
+| 1900|Football                  |
+| 1992|Freestyle Skiing          |
+| 1900|Golf                      |
+| 1896|Gymnastics                |
+| 1936|Handball                  |
+| 1908|Hockey                    |
+| 1920|Ice Hockey                |
+| 1908|Jeu De Paume              |
+| 1964|Judo                      |
+| 1904|Lacrosse                  |
+| 1964|Luge                      |
+| 1924|Military Ski Patrol       |
+| 1912|Modern Pentathlon         |
+| 1908|Motorboating              |
+| 1924|Nordic Combined           |
+| 1900|Polo                      |
+| 1908|Racquets                  |
+| 1984|Rhythmic Gymnastics       |
+| 1904|Roque                     |
+| 1900|Rowing                    |
+| 1900|Rugby                     |
+| 2016|Rugby Sevens              |
+| 1900|Sailing                   |
+| 1896|Shooting                  |
+| 1992|Short Track Speed Skating |
+| 1928|Skeleton                  |
+| 1924|Ski Jumping               |
+| 1998|Snowboarding              |
+| 1996|Softball                  |
+| 1924|Speed Skating             |
+| 1896|Swimming                  |
+| 1984|Synchronized Swimming     |
+| 1988|Table Tennis              |
+| 2000|Taekwondo                 |
+| 1896|Tennis                    |
+| 2000|Trampolining              |
+| 2000|Triathlon                 |
+| 1900|Tug-Of-War                |
+| 1964|Volleyball                |
+| 1900|Water Polo                |
+| 1896|Weightlifting             |
+| 1896|Wrestling                 |
