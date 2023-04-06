@@ -231,6 +231,43 @@ olympics %>%
             mean_height = mean(Height, na.rm = TRUE),
             mean_weight = mean(Weight, na.rm = TRUE))
 
+## Check the minimum, average, maximum Age, Height, Weight of Athletes in Each Year
+e <- olympics %>%
+  group_by(Year) %>%
+  summarize(min_age = min(Age),
+            mean_age = mean(Age),
+            max_age = max(Age),
+            min_height = min(Weight),
+            mean_height = mean(Weight),
+            max_height = max(Weight),
+            min_weight = min(Height),
+            mean_weight = mean(Height),
+            max_weight = max(Height))
+
+print(e, n = nrow(f))
+kable(e, format =  'markdown')
+
+## Plot Height vs Weight using a Scatterplot
+ggplot(olympics, aes(x = Height, y = Weight)) +
+  geom_point(fill = "blue", colour = "black", shape = 21) +
+  labs(x = "Height", 
+       y = "Weight") +
+  ggtitle("Scatterplot of Height vs Weight") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+## Plot Height vs Weight using a Scatterplot and Hightlight each Sex
+
+ggplot(olympics, aes(x = Height, y = Weight)) +
+  geom_point(aes(color = Sex, shape = Sex, fill = Sex)) +
+  scale_color_manual(values = c("blue", "orange")) +
+  labs(x = "Height", y = "Weight", color = "Sex", shape = "Sex", fill = "Sex") +
+  ggtitle("Scatterplot of Height vs Weight by Sex")+
+  theme(plot.title = element_text(hjust = 0.5))
+
+
+
+
+
 # Check for the number of unique values in each column
 unique_counts <- sapply(olympics, function(x) length(unique(x)))
 print(unique_counts)
@@ -239,14 +276,14 @@ print(unique_counts)
 summary(olympics[,sapply(olympics, is.character)])
 
 ## Check the first record within the dataset for each Olympic Sport
-e<- olympics %>%
+f<- olympics %>%
   arrange(Year) %>%
   group_by(Sport) %>%
   select(Year, Sport) %>%
   slice(1)
 
-print(e, n = nrow(e))
-kable(e, format =  'markdown')
+print(f, n = nrow(e))
+kable(f, format =  'markdown')
 
 
 
