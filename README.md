@@ -2,7 +2,7 @@
   <img src="https://user-images.githubusercontent.com/128324837/231437078-a5328089-18b3-45f5-9ace-6215ea8475ea.png" width=50% height=50%>
 </p>
 
-# Olympics Dataset Exploratory Data Analysis Using R
+# Exploratory Data Analysis of Olympics Dataset Using R
 
 ## 1. Background and Motivation
 
