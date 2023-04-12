@@ -4,6 +4,28 @@
 
 # Exploratory Data Analysis of Olympics Dataset Using R
 
+- [1. Background and Motivation](#1-background-and-motivation)
+- [2. Dataset Retrieval and Discovery](#2-dataset-retrieval-and-discovery)
+  * [2.1 Dataset Retrieval](#21-dataset-retrieval)
+  * [2.2 License](#22-license)
+  * [2.3 Data Discovery](#23-data-discovery)
+- [3. Data Cleaning](#3-data-cleaning)
+  * [3.1 Impute Missing Data](#31-impute-missing-data)
+  * [3.2 Drop Unused Games Column as It Contains Data Already Found in Year and Season Column](#32-drop-unused-games-column-as-it-contains-data-already-found-in-year-and-season-column)
+- [4. Exploratory Data Analysis](#4-exploratory-data-analysis)
+  * [4.1 Look at the Statistical Summary of the Numeric Columns](#41-look-at-the-statistical-summary-of-the-numeric-columns)
+  * [4.2 Plot the histograms for the age, weight and height values](#42-plot-the-histograms-for-the-age-weight-and-height-values)
+  * [4.3 Create a boxplot of age and highlight the outliers](#43-create-a-boxplot-of-age-and-highlight-the-outliers)
+  * [4.4 Calculate Outliers Bound](#44-calculate-outliers-bound)
+  * [4.5 Looking at the Sports that Have High and Low Value Outliers in Atheletes' Age, Weight and Height](#45-looking-at-the-sports-that-have-high-and-low-value-outliers-in-atheletes-age-weight-and-height)
+  * [4.6 Compare the Mean Age, Weight and Height for Male and Female Athletes](#46-compare-the-mean-age-weight-and-height-for-male-and-female-athletes)
+  * [4.7 Check the Minimum, Average, Maximum Age, Height, Weight of Athletes in Each Year](#47-check-the-minimum-average-maximum-age-height-weight-of-athletes-in-each-year)
+  * [4.8 Plot Height vs Weight using a Scatterplot](#48-plot-height-vs-weight-using-a-scatterplot)
+  * [4.9 Plot Height vs Weight using a Scatterplot and Hightlight each Sex](#49-plot-height-vs-weight-using-a-scatterplot-and-hightlight-each-sex)
+  * [4.10 See When Each Sport is First Mentioned in the Dataset](#410-see-when-each-sport-is-first-mentioned-in-the-dataset)
+  * [4.11 Looking at the Countries with the Most Medals](#411-looking-at-the-countries-with-the-most-medals)
+- [5. Conclusion and Summary](#5-conclusion-and-summary)
+
 ## 1. Background and Motivation
 
 <p align = "justify"> 
@@ -140,7 +162,7 @@ print(unique_counts)
   135571 134732     2  74     95    220 1184  230   35      2   42    66   765     4
 ```
 
-#### 2.3.5 Look at the Non Numerical Data:
+#### 2.3.5 Look at the Non Numerical Data
 > input
 ``` {r}
 summary(olympics[,sapply(olympics, is.character)])
@@ -250,7 +272,7 @@ olympics$Games <- NULL
 ```
 
 ## 4. Exploratory Data Analysis
-### 4.1 Look at the Statistical Summary of the Numeric Columns:
+### 4.1 Look at the Statistical Summary of the Numeric Columns
 > Input:
 ``` {r}
 summary(olympics[, sapply(olympics, is.numeric)])
@@ -266,7 +288,7 @@ summary(olympics[, sapply(olympics, is.numeric)])
 |3rd Qu.:102097 |3rd Qu.:28.00 |3rd Qu.:180.0 |3rd Qu.: 75.0 |3rd Qu.:2002 |
 |Max.   :135571 |Max.   :97.00 |Max.   :226.0 |Max.   :214.0 |Max.   :2016 |
 
-### 4.2 Plot the histograms for the age, weight and height values:
+### 4.2 Plot the histograms for the age, weight and height values
 
 *Age*
 
@@ -686,7 +708,7 @@ Short Track Speed Skating                  Skeleton               Ski Jumping
                      3815                      3927                      7138 
 ```
 
-### 4.6 Compare the Mean Age, Weight and Height for Male and Female Athletes"
+### 4.6 Compare the Mean Age, Weight and Height for Male and Female Athletes
 > input:
 ``` {r}
 olympics %>%
@@ -788,7 +810,7 @@ ggplot(olympics, aes(x = Height, y = Weight)) +
   <img src="https://user-images.githubusercontent.com/128324837/230479399-630883e0-3cf3-4851-a39c-56e1ecc04c86.png">
 </p>
 
- ### 4.10 See When Each Sport is First Mentioned in the Dataset:
+ ### 4.10 See When Each Sport is First Mentioned in the Dataset
  > input:
 ``` {r}
 olympics %>%
