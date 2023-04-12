@@ -1,6 +1,6 @@
 # Olympics Dataset Exploratory Data Analysis Using R
 
-## Background and Motivation
+## 1. Background and Motivation
 
 <p align = "justify"> 
 The six practices of Exploratory Data Analysis (EDA) are widely used in data science to gain insights into data and to discover patterns, relationships, and anomalies. These practices, which include formulating questions, data collection, data cleaning, data exploration, data visualization, and drawing conclusions, guide the process of exploring data and help identify meaningful information that could be useful in decision-making.
@@ -12,31 +12,40 @@ The six practices of EDA are not a linear, step-by-step process, but rather an i
 This project aims to implement the six practices of EDA using R programming language. The dataset chosen for this project is from the Olympic Games, and it contains information about athletes, including their age, height, weight, and performance, among other variables.
 </p>
 
-## Dataset Retrieval and Data Discovery
+## 2. Dataset Retrieval and Discovery
 
+### 2.1 Dataset Retrieval
 The dataset used in the project is available at: https://www.kaggle.com/datasets/heesoo37/120-years-of-olympic-history-athletes-and-results
-
+<p align = "justify">
 The olympics dataset, which contains information about athletes, teams, events, and medals from the first modern Olympic Games in 1896 to the 2016 Rio Olympics, is a valuable resource for EDA. The dataset consists of over 271,000 records and 15 columns, including athlete and team information, event details, and medal outcomes.
+</p>
 
 Is contains the following columns:
-ID: Unique identifier for each athlete in the dataset
 
-1. **Name:** Full name of the athlete
-2. **Sex:** Gender of the athlete, either "M" or "F"
-3. **Age:** Age of the athlete in years, represented as an integer
-4. **Height:** Height of the athlete in centimeters
-5. **Weight:** Weight of the athlete in kilograms
-6. **Team:** Name of the team that the athlete represents
-7. **NOC:** Three-letter code for the National Olympic Committee of the athlete
-8. **Games:** Year and season of the Olympic Games in which the athlete participated
-9. **Year:** Year of the Olympic Games, represented as an integer
-10. **Season:** Season of the Olympic Games, either "Summer" or "Winter"
-11. **City:** Host city of the Olympic Games
-12. **Sport:** Sport in which the athlete participated
-13. **Event:** Specific event within the sport in which the athlete participated
-14. **Medal:** Medal won by the athlete, either "Gold", "Silver", "Bronze", or "NA" if the athlete did not win a medal
+1. **ID:** Unique identifier for each athlete in the dataset
+2. **Name:** Full name of the athlete
+3. **Sex:** Gender of the athlete, either "M" or "F"
+4. **Age:** Age of the athlete in years, represented as an integer
+5. **Height:** Height of the athlete in centimeters
+6. **Weight:** Weight of the athlete in kilograms
+7. **Team:** Name of the team that the athlete represents
+8. **NOC:** Three-letter code for the National Olympic Committee of the athlete
+9. **Games:** Year and season of the Olympic Games in which the athlete participated
+10. **Year:** Year of the Olympic Games, represented as an integer
+11. **Season:** Season of the Olympic Games, either "Summer" or "Winter"
+12. **City:** Host city of the Olympic Games
+13. **Sport:** Sport in which the athlete participated
+14. **Event:** Specific event within the sport in which the athlete participated
+15. **Medal:** Medal won by the athlete, either "Gold", "Silver", "Bronze", or "NA" if the athlete did not win a medal
 
-## Download and install all required packages
+### 2.2 License
+<p align = "justify">
+The data in this projects and the license CC0: Public Domain. This means that it is released to the public domain, and anyone can use, modify, or distribute it for any purpose, including commercial purposes, without any restrictions or limitations.
+</p>
+
+### 2.3 Data Discovery
+ 
+#### 2.3.1 Download and install all required packages
 ``` {r}
 install.packages("readr")
 install.packages("sqldf")
@@ -54,8 +63,7 @@ library(readxl)
 library(mice)
 ```
 
-
-## x. Import data
+#### 2.3.2 Import data
 > Input:
 ``` {r}
 setwd("/Users/elizabeth/Documents/GitHub/Olympics")
@@ -69,7 +77,7 @@ getwd()
 ``` {r}
 olympics <- read.csv("athlete_events.csv", header = TRUE)
 ```
-### x.x Get Basic Information About the Data
+#### 2.3.3 Get Basic Information About the Data
 > Input:
 ``` {r}
 head(olympics)
@@ -116,11 +124,43 @@ data.frame': 271116 obs. of 15 variables:
  $ Event : chr  "Basketball Men's Basketball" "Judo Men's Extra-Lightweight" "Football Men's Football" "Tug-Of-War Men's Tug-Of-War" ...
  $ Medal : chr  NA NA NA "Gold" ...
  ```
+ #### 2.3.4 Check for the Number of Unique Values in Each Column
+> input:
+``` {r}
+unique_counts <- sapply(olympics, function(x) length(unique(x)))
+print(unique_counts)
+```
+> Output:
+``` {r}
+      ID   Name   Sex Age Height Weight Team  NOC Year Season City Sport Event Medal
+  135571 134732     2  74     95    220 1184  230   35      2   42    66   765     4
+```
 
-## x. Clean Data
+#### 2.3.5 Look at the Non Numerical Data:
+> input
+``` {r}
+summary(olympics[,sapply(olympics, is.character)])
+```
+> Output:
+``` {r}
+     Name               Sex                Team               NOC           
+ Length:271116      Length:271116      Length:271116      Length:271116     
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+    Season              City              Sport              Event          
+ Length:271116      Length:271116      Length:271116      Length:271116     
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+    Medal          
+ Length:271116     
+ Class :character  
+ Mode  :character  
+ ```
 
-### x.x Impute Missing Data
-#### x.x.x Find Null Values
+## 3. Clean Data
+
+### 3.1 Impute Missing Data
+#### 3.1.1 Find Null Values
 > Input:
 ``` {r}
 colSums(is.na(olympics))
@@ -145,7 +185,7 @@ colSums(is.na(olympics))
 |Event  |      0|
 |Medal  | 231333|
 
-#### x.x.x Fill the Missing Values in the Column Medal With String of ‘DNW'
+#### 3.1.2 Fill the Missing Values in the Column Medal With String of ‘DNW'
 Medals have a NULL value in about 231,333 rows. This is because only the top 3 athletes in each sport can win medals. These missing values are therefore replaceds by 'Did not win' or 'DNW'.
 > Input:
 ```{r}
@@ -153,7 +193,7 @@ olympics$Medal[is.na(olympics$Medal)] <- "DNW"
 
 sum(is.na(olympics$Medal))
 ```
-#### Replace Missing Values in Height, Weight and Age Using Mice
+#### 3.1.3 Replace Missing Values in Height, Weight and Age Using Mice
 Build a list of columns that will be used for imputation
 > Input:
 ``` {r}
@@ -174,7 +214,7 @@ Assign the imputed data back to the original DataFrame's columns
 ```{r}
 olympics[, cols_to_impute] <- imputed_data[, cols_to_impute]
 ```
-#### x.x.x Comfirm That All Columns Are Imputed
+#### 3.1.4 Comfirm That All Columns Are Imputed
 > Input:
 ``` {r}
 colSums(is.na(olympics))
@@ -199,15 +239,14 @@ colSums(is.na(olympics))
 |Event  |  0|
 |Medal  |  0|
 
-### x.x Drop Unused Games Column as It Contains Data Already Found in Year and Season Column
+### 3.2 Drop Unused Games Column as It Contains Data Already Found in Year and Season Column
 > Input:
 ``` {r}
 olympics$Games <- NULL
 ```
 
-
-## .x Exploratory Data Analysis
-### x.x Look at the Statistical Summary of the Numeric Columns:
+## 4. Exploratory Data Analysis
+### 4.1 Look at the Statistical Summary of the Numeric Columns:
 > Input:
 ``` {r}
 summary(olympics[, sapply(olympics, is.numeric)])
@@ -223,7 +262,7 @@ summary(olympics[, sapply(olympics, is.numeric)])
 |3rd Qu.:102097 |3rd Qu.:28.00 |3rd Qu.:180.0 |3rd Qu.: 75.0 |3rd Qu.:2002 |
 |Max.   :135571 |Max.   :97.00 |Max.   :226.0 |Max.   :214.0 |Max.   :2016 |
 
-### x.x Plot the histograms for the age, weight and height values:
+### 4.2 Plot the histograms for the age, weight and height values:
 
 *Age*
 
@@ -269,7 +308,7 @@ ggplot(olympics, aes(x = Height)) +
   <img src="https://user-images.githubusercontent.com/128324837/229913813-a9596601-5b8b-49e3-aebd-ded84133643a.png">
 </p>
 
-### x.x Create a boxplot of age and highlight the outliers
+### 4.3 Create a boxplot of age and highlight the outliers
 
 *Age*
 
@@ -325,7 +364,7 @@ ggplot(olympics, aes(y = Height)) +
   <img src="https://user-images.githubusercontent.com/128324837/229929189-bd434bb4-7b62-4f82-bd6c-3024961439d8.png">
 </p>
 
-### .x Calculate Outliers Bound
+### 4.4 Calculate Outliers Bound
 *Age*
 > Input:
 ``` {r}
@@ -394,7 +433,8 @@ h_high
 75% 
 203 
 ``` 
-#### x.x.x Find the Sport(s) With the Youngest Athletes:
+### 4.5 Looking at the Sports that Have High and Low Value Outliers in Atheletes' Age, Weight and Height
+#### 4.5.1 Find the Sport(s) With Low Value Age Outliers:
 > input:
 ``` {r}
 young <- (olympics$Age < (a_q1 - 1.5 * a_iqr))
@@ -408,7 +448,7 @@ olympics[young, "Sport"] %>% table()
 Gymnastics 
          1         
 ```
-####  x.x.x Find the Sport(s) With the Oldest Athletes:
+#### 4.5.2 Find the Sport(s) With High Value Age Outliers:
 > input:
 ``` {r}
 old <- (olympics$Age < (a_q3 + 1.5 * a_iqr))
@@ -466,7 +506,7 @@ Short Track Speed Skating                  Skeleton               Ski Jumping
                      3820                      3893                      7102 
 
 ```
-#### x.x.x Find the Sport(s) With the Lighest Athletes:
+#### 4.5.3 Find the Sport(s) With Low Value Weight Outliers:
 > input:
 ``` {r}
 light <- (olympics$Weight < (w_q1 - 1.5 * w_iqr))
@@ -490,7 +530,7 @@ Cross Country Skiing              Cycling               Diving
             Swimming           Volleyball            Wrestling 
                    1                    1                    1 
 ```
-#### x.x.x Find the Sport(s) With the Heaviest Athletes:
+#### 4.5.4 Find the Sport(s) With High Value Weight Outliers:
 > input:
 ``` {r}
 heavy <- (olympics$Weight < (w_q3 + 1.5 * w_iqr))
@@ -546,7 +586,7 @@ Short Track Speed Skating                  Skeleton               Ski Jumping
                Water Polo             Weightlifting                 Wrestling 
                      3721                      3496                      6696 
 ```
-#### x.x.x Find the sport(s) with the shortest athletes:
+#### 4.5.5 Find the sport(s) with Low Value Height Outliers:
 > input:
 ``` {r}
 short <- (olympics$Height < (h_q1 - 1.5 * h_iqr))
@@ -585,7 +625,7 @@ olympics[short, "Sport"] %>% table()
           Water Polo        Weightlifting            Wrestling 
                    4                   18                   14 
 ```
-#### x.x.x Find the Sport(s) With the Tallest Athletes:
+#### 4.5.6 Find the Sport(s) With High Value Height Outliers:
 > input:
 ``` {r}
 tall <- (olympics$Height < (h_q3 + 1.5 * h_iqr))
@@ -642,7 +682,7 @@ Short Track Speed Skating                  Skeleton               Ski Jumping
                      3815                      3927                      7138 
 ```
 
-#### x.x.x Compare the Mean Age, Weight and Height for Male and Female Athletes"
+### 4.6 Compare the Mean Age, Weight and Height for Male and Female Athletes"
 > input:
 ``` {r}
 olympics %>%
@@ -659,7 +699,7 @@ olympics %>%
 1 F         23.7        168.        61.0
 2 M         26.3        178.        74.7
 ```
-#### x.x.x Check the Minimum, Average, Maximum Age, Height, Weight of Athletes in Each Year
+### 4.7 Check the Minimum, Average, Maximum Age, Height, Weight of Athletes in Each Year
 > input:
 ``` {r}
 olympics %>%
@@ -714,7 +754,7 @@ olympics %>%
 | 2014|      15| 25.98732|      55|         39|    70.62196|      116.0|        146|    174.8180|        206|
 | 2016|      13| 26.20792|      62|         30|    70.98093|      170.0|        133|    176.0332|        218|
 
-#### x.x.x Plot Height vs Weight using a Scatterplot
+### 4.8 Plot Height vs Weight using a Scatterplot
 > input:
 ``` {r}
 ggplot(olympics, aes(x = Height, y = Weight)) +
@@ -729,7 +769,7 @@ ggplot(olympics, aes(x = Height, y = Weight)) +
   <img src="https://user-images.githubusercontent.com/128324837/230471704-6143e542-5147-427a-a16f-16dfd99b187c.png">
 </p>
 
-#### x.x.x Plot Height vs Weight using a Scatterplot and Hightlight each Sex
+### 4.9 Plot Height vs Weight using a Scatterplot and Hightlight each Sex
 > input:
 ``` {r}
 ggplot(olympics, aes(x = Height, y = Weight)) +
@@ -744,39 +784,7 @@ ggplot(olympics, aes(x = Height, y = Weight)) +
   <img src="https://user-images.githubusercontent.com/128324837/230479399-630883e0-3cf3-4851-a39c-56e1ecc04c86.png">
 </p>
 
-#### x.x.x Check for the Number of Unique Values in Each Column
-> input:
-``` {r}
-unique_counts <- sapply(olympics, function(x) length(unique(x)))
-print(unique_counts)
-```
-> Output:
-``` {r}
-      ID   Name   Sex Age Height Weight Team  NOC Year Season City Sport Event Medal
-  135571 134732     2  74     95    220 1184  230   35      2   42    66   765     4
-```
-
-#### x.x Look at the Non Numerical Data:
-> input
-``` {r}
-summary(olympics[,sapply(olympics, is.character)])
-```
-> Output:
-``` {r}
-     Name               Sex                Team               NOC           
- Length:271116      Length:271116      Length:271116      Length:271116     
- Class :character   Class :character   Class :character   Class :character  
- Mode  :character   Mode  :character   Mode  :character   Mode  :character  
-    Season              City              Sport              Event          
- Length:271116      Length:271116      Length:271116      Length:271116     
- Class :character   Class :character   Class :character   Class :character  
- Mode  :character   Mode  :character   Mode  :character   Mode  :character  
-    Medal          
- Length:271116     
- Class :character  
- Mode  :character  
- ```
- #### See When Each Sport is First Mentioned in the Dataset:
+ ### 4.10 See When Each Sport is First Mentioned in the Dataset:
  > input:
 ``` {r}
 olympics %>%
