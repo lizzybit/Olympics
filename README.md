@@ -1,4 +1,40 @@
-# Olympics
+# Olympics Dataset Exploratory Data Analysis Using R
+
+## Background and Motivation
+
+<p align = "justify"> 
+The six practices of Exploratory Data Analysis (EDA) are widely used in data science to gain insights into data and to discover patterns, relationships, and anomalies. These practices, which include formulating questions, data collection, data cleaning, data exploration, data visualization, and drawing conclusions, guide the process of exploring data and help identify meaningful information that could be useful in decision-making.
+</p>
+<p align = "justify"> 
+The six practices of EDA are not a linear, step-by-step process, but rather an iterative and non-sequential approach to exploring data. This means that data analysts must use their experience and logical reasoning to determine when and how to apply each of the six practices, as each dataset is unique and may require a different approach.
+</p>
+<p align = "justify"> 
+This project aims to implement the six practices of EDA using R programming language. The dataset chosen for this project is from the Olympic Games, and it contains information about athletes, including their age, height, weight, and performance, among other variables.
+</p>
+
+## Dataset Retrieval and Data Discovery
+
+The dataset used in the project is available at: https://www.kaggle.com/datasets/heesoo37/120-years-of-olympic-history-athletes-and-results
+
+The olympics dataset, which contains information about athletes, teams, events, and medals from the first modern Olympic Games in 1896 to the 2016 Rio Olympics, is a valuable resource for EDA. The dataset consists of over 271,000 records and 15 columns, including athlete and team information, event details, and medal outcomes.
+
+Is contains the following columns:
+ID: Unique identifier for each athlete in the dataset
+
+1. **Name:** Full name of the athlete
+2. **Sex:** Gender of the athlete, either "M" or "F"
+3. **Age:** Age of the athlete in years, represented as an integer
+4. **Height:** Height of the athlete in centimeters
+5. **Weight:** Weight of the athlete in kilograms
+6. **Team:** Name of the team that the athlete represents
+7. **NOC:** Three-letter code for the National Olympic Committee of the athlete
+8. **Games:** Year and season of the Olympic Games in which the athlete participated
+9. **Year:** Year of the Olympic Games, represented as an integer
+10. **Season:** Season of the Olympic Games, either "Summer" or "Winter"
+11. **City:** Host city of the Olympic Games
+12. **Sport:** Sport in which the athlete participated
+13. **Event:** Specific event within the sport in which the athlete participated
+14. **Medal:** Medal won by the athlete, either "Gold", "Silver", "Bronze", or "NA" if the athlete did not win a medal
 
 ## Download and install all required packages
 ``` {r}
