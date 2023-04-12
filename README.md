@@ -161,7 +161,7 @@ summary(olympics[,sapply(olympics, is.character)])
  Mode  :character  
  ```
 
-## 3. Clean Data
+## 3. Data Cleaning
 
 ### 3.1 Impute Missing Data
 #### 3.1.1 Find Null Values
