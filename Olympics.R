@@ -266,8 +266,6 @@ ggplot(olympics, aes(x = Height, y = Weight)) +
 
 
 
-
-
 # Check for the number of unique values in each column
 unique_counts <- sapply(olympics, function(x) length(unique(x)))
 print(unique_counts)
@@ -276,7 +274,7 @@ print(unique_counts)
 summary(olympics[,sapply(olympics, is.character)])
 
 ## Check the first record within the dataset for each Olympic Sport
-f<- olympics %>%
+f <- olympics %>%
   arrange(Year) %>%
   group_by(Sport) %>%
   select(Year, Sport) %>%
@@ -285,6 +283,21 @@ f<- olympics %>%
 print(f, n = nrow(e))
 kable(f, format =  'markdown')
 
+## group the data by country and medal type, and count the number of occurrences
+medals_by_country <- olympics %>%
+  group_by(NOC, Medal) %>%
+  summarise(count = n()) %>%
+  ungroup()
+
+## calculate the total number of medals won by each country
+total_medals_by_country <- medals_by_country %>%
+  group_by(NOC) %>%
+  summarise(total_medals = sum(count)) %>%
+  arrange(desc(total_medals))
+
+## display the top 10 countries with the most medals
+g <- head(total_medals_by_country, 10)
+kable(g, format =  'markdown')
 
 
 
