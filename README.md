@@ -868,6 +868,42 @@ olympics %>%
 | 1896|Weightlifting             |
 | 1896|Wrestling                 |
 
+### 4.11 Looking at the Countries with the Most Medals
+> input:
+``` {r}
+medals_by_country <- olympics %>%
+  group_by(NOC, Medal) %>%
+  summarise(count = n()) %>%
+  ungroup()
+```
+#### 4.11.1 Calculate the Total Number of Medals Won by Each Country
+> input:
+``` {r}
+total_medals_by_country <- medals_by_country %>%
+  group_by(NOC) %>%
+  summarise(total_medals = sum(count)) %>%
+  arrange(desc(total_medals))
+```
+#### 4.11.2 Display the Top 10 Countries With the Most Medals
+> input:
+``` {r}
+head(total_medals_by_country, 10)
+```
+> Output:
+
+|NOC | total_medals|
+|:---|------------:|
+|USA |        18853|
+|FRA |        12758|
+|GBR |        12256|
+|ITA |        10715|
+|GER |         9830|
+|CAN |         9733|
+|JPN |         8444|
+|SWE |         8339|
+|AUS |         7638|
+|HUN |         6607|
+
 ## 5. Conclusion and Summary
 In conclusion, the Olympic dataset used in this project is a rich and valuable resource for data analysts and researchers interested in exploring the history of the Olympic Games and the athletes who have competed over the past 120 years. In this project, we demonstrated how to perform exploratory data analysis on the dataset, which involved importing, cleaning, and visualizing the data to identify patterns and trends.
 
