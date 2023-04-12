@@ -867,3 +867,10 @@ olympics %>%
 | 1900|Water Polo                |
 | 1896|Weightlifting             |
 | 1896|Wrestling                 |
+
+## 5. Conclusion and Summary
+In conclusion, the Olympic dataset used in this project is a rich and valuable resource for data analysts and researchers interested in exploring the history of the Olympic Games and the athletes who have competed over the past 120 years. In this project, we demonstrated how to perform exploratory data analysis on the dataset, which involved importing, cleaning, and visualizing the data to identify patterns and trends.
+
+Through the EDA process, we were able to identify various interesting insights about the athletes and the games, such as the distribution of athletes by gender, age, and physical attributes and when sports were first played in the Olympics. Moreover, we were able to visualize these insights using various graphs and charts, which allowed us to better understand the data and communicate our findings to others.
+
+Overall, the EDA process provided valuable insights into the Olympic athletes dataset and demonstrated the importance of data cleaning and visualization in gaining a deeper understanding of complex datasets. The findings from this project could serve as a starting point for further analysis and research, and could be used by sports enthusiasts, policymakers, and analysts to make more informed decisions about athletic training, performance, and policy.
