@@ -4,6 +4,7 @@
 
 # Exploratory Data Analysis of Olympics Dataset Using R
 
+## Table of Contents
 - [1. Background and Motivation](#1-background-and-motivation)
 - [2. Dataset Retrieval and Discovery](#2-dataset-retrieval-and-discovery)
   * [2.1 Dataset Retrieval](#21-dataset-retrieval)
